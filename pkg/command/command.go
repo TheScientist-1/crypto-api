@@ -18,9 +18,9 @@ func NewCommandHandler(bitcoinService *bitcoin.BitcoinService) *CommandHandler {
 func (ch *CommandHandler) HandleRateCommand() {
 	price, err := ch.bitcoinService.GetCurrentPrice()
 	if err != nil {
-		fmt.Println("Помилка при отриманні курсу біткоїна:", err)
+		fmt.Println("Error getting Bitcoin rate:", err)
 		return
 	}
 
-	fmt.Printf("Поточний курс біткоїна до UAH: %.2f\n", price)
+	fmt.Printf("Current Bitcoin exchange rate to UAH: %.2f\n", price)
 }

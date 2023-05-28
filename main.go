@@ -1,7 +1,7 @@
 package main
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
+	//"github.com/gin-gonic/gin"
 	"crypto-api/pkg/bitcoin"
 	"crypto-api/pkg/command"
 )
@@ -15,12 +15,12 @@ func NewBitcoinService() *bitcoin.BitcoinService {
 func main()  {
 
 	
-	router := gin.Default()
-	bitcoinService := NewBitcoinService()
-	commandHandler := NewCommandHandler(bitcoinService)
+	//router := gin.Default()
+	bitcoinService := bitcoin.NewBitcoinService()
+	commandHandler := command.NewCommandHandler(bitcoinService)
 
 	for {
-		fmt.Print("Введіть команду: ")
+		fmt.Print("Enter the command ")
 		var command string
 		fmt.Scanln(&command)
 
@@ -28,7 +28,7 @@ func main()  {
 		case "/rate":
 			commandHandler.HandleRateCommand()
 		default:
-			fmt.Println("Невідома команда")
+			fmt.Println("Unknown Command")
 		}
 	}
 

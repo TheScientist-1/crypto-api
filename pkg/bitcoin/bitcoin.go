@@ -22,6 +22,7 @@ func NewBitcoinService() *BitcoinService {
 func (s *BitcoinService) GetCurrentPrice() (float64, error) {
 	resp, err := http.Get(s.APIURL)
 	if err != nil {
+		fmt.Println(err.Error())
 		return 0, fmt.Errorf("GET request failed: %s", err.Error())
 	}
 	defer resp.Body.Close()
@@ -32,6 +33,7 @@ func (s *BitcoinService) GetCurrentPrice() (float64, error) {
 
 	err = json.NewDecoder(resp.Body).Decode(&data)
 	if err != nil {
+		fmt.Println(err.Error())
 		return 0, fmt.Errorf("error parsing JSON data: %s", err.Error())
 	}
 
