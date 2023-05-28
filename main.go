@@ -15,6 +15,6 @@ func main()  {
 	router.POST("/api/sendEmails", routes.SendEmails)
 	router.POST("/api/subscribe", routes.Subscribe)
 
-	router.Run("localhost:5000")
+	router.Run(":8080")
 
 }

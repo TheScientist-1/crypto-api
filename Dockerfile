@@ -1,23 +1,15 @@
 FROM golang:1.20-alpine AS build-stage
 
-RUN apk --no-cache add ca-certificates
-
-WORKDIR /CryptoAppBTCUAH
+WORKDIR /Crypto_API
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -o /CryptoAppBTCUAH/btc-app .
+RUN CGO_ENABLED=0 GOOS=linux go build  -o /Crypto_API/main .
 
-RUN chmod +x /CryptoAppBTCUAH/btc-app
+FROM alpine:3.18
 
-FROM scratch
-
-COPY --from=build-stage /CryptoAppBTCUAH/btc-app /CryptoAppBTCUAH/btc-app
-
-COPY --from=build-stage /CryptoAppBTCUAH/storage/ /CryptoAppBTCUAH/storage
-
-COPY --from=build-stage /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY --from=build-stage /Crypto_API/main main
 
 EXPOSE 8080
 
-ENTRYPOINT ["/CryptoAppBTCUAH/btc-app"]
+ENTRYPOINT ["main"]
