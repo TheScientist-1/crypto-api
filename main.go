@@ -12,9 +12,9 @@ func main()  {
 	router := gin.Default()
 	
 	router.GET("/api/rate", routes.GetPrice)
+	router.POST("/api/sendEmails", routes.SendEmails)
+	router.POST("/api/subscribe", routes.Subscribe)
+
 	router.Run("localhost:5000")
-
-	router.Post("/api/subscribe", services.Subscribe)
-
 
 }

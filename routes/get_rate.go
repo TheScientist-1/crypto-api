@@ -28,3 +28,21 @@ func GetPrice(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"rate": price.Price})
 }
+
+func GetCurrentPrice() string {
+	_url, _ := url.ParseRequestURI(baseUrl)
+	_url.Path = pathEndpoint
+	parameters := url.Values{}
+	parameters.Add("symbol", "BTCUAH")
+	_url.RawQuery = parameters.Encode()
+
+	response, _ := http.Get(_url.String())
+	responseBody, _ := ioutil.ReadAll(response.Body)
+
+	price := struct {
+		Minutes int    `json:"mins"`
+		Price   string `json:"price"`
+	}{}
+	json.Unmarshal(responseBody, &price)
+	return price.Price
+}
