@@ -14,6 +14,7 @@ func main()  {
 	router.GET("/api/rate", routes.GetPrice)
 	router.Run("localhost:5000")
 
-	
+	router.Post("/api/subscribe", services.Subscribe)
+
 
 }
